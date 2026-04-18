@@ -77,4 +77,96 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser };
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private (Requires Token)
+const getUserProfile = async (req, res) => {
+    try {
+        // req.user is set by our 'protect' middleware
+        const user = await User.findById(req.user._id);
+
+        if (user) {
+            res.status(200).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                age: user.age,
+                nic: user.nic,
+                height: user.height,
+                weight: user.weight,
+                role: user.role
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Update user profile
+// @route   PUT /api/users/:id
+// @access  Private (Requires Token)
+const updateUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (user) {
+            // Check if the logged-in user matches the user they are trying to update
+            if (user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+                return res.status(401).json({ message: 'Not authorized to update this profile' });
+            }
+
+            user.name = req.body.name || user.name;
+            user.email = req.body.email || user.email;
+            user.phone = req.body.phone || user.phone;
+            user.age = req.body.age || user.age;
+            user.height = req.body.height || user.height;
+            user.weight = req.body.weight || user.weight;
+
+            // If the user wants to update their password, it will be hashed automatically by the pre-save hook
+            if (req.body.password) {
+                user.password = req.body.password;
+            }
+
+            const updatedUser = await user.save();
+
+            res.status(200).json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                message: 'Profile updated successfully'
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Delete user
+// @route   DELETE /api/users/:id
+// @access  Private (Requires Token)
+const deleteUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (user) {
+            // Only the user themselves OR an admin can delete the account
+            if (user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+                return res.status(401).json({ message: 'Not authorized to delete this profile' });
+            }
+
+            await user.deleteOne();
+            res.status(200).json({ message: 'User deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { registerUser, loginUser, getUserProfile, updateUser, deleteUser };
