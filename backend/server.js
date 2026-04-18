@@ -29,6 +29,8 @@ app.use('/api/users', require('./routes/userRoutes'));
 // ADD THIS NEW LINE FOR MEMBERSHIPS:
 app.use('/api/memberships', require('./routes/membershipRoutes'));
 
+app.use('/api/enrollments', require('./routes/enrollmentRoutes'));
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
