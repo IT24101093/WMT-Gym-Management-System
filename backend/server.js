@@ -31,6 +31,9 @@ app.use('/api/memberships', require('./routes/membershipRoutes'));
 
 app.use('/api/enrollments', require('./routes/enrollmentRoutes'));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
