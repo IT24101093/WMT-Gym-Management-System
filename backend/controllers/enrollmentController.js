@@ -83,10 +83,34 @@ const getMyEnrollments = async (req, res) => {
     }
 };
 
+// @desc    Delete/Cancel an enrollment
+// @route   DELETE /api/enrollments/:id
+// @access  Private
+const deleteEnrollment = async (req, res) => {
+    try {
+        const enrollment = await Enrollment.findById(req.params.id);
+
+        if (!enrollment) {
+            return res.status(404).json({ message: 'Enrollment not found' });
+        }
+
+        // Security Check: Only the Admin OR the User who owns the enrollment can delete it
+        if (enrollment.user.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+            return res.status(401).json({ message: 'Not authorized to cancel this enrollment' });
+        }
+
+        await enrollment.deleteOne();
+        res.status(200).json({ message: 'Enrollment cancelled and removed successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
 module.exports = { 
     enrollInPlan, 
     getAllEnrollments,  
     updateEnrollmentStatus, 
-    getMyEnrollments 
+    getMyEnrollments,
+    deleteEnrollment
 };
