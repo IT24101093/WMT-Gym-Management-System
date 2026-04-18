@@ -149,14 +149,36 @@ const updateUser = async (req, res) => {
 // @desc    Delete user
 // @route   DELETE /api/users/:id
 // @access  Private (Requires Token)
+// @desc    Delete user
+// @route   DELETE /api/users/:id
+// @access  Private (Requires Token)
 const deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
+        const { password } = req.body; // <--- The frontend will send the typed password here
 
         if (user) {
-            // Only the user themselves OR an admin can delete the account
-            if (user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+            // Check if the person is the owner or an admin
+            const isOwner = user._id.toString() === req.user._id.toString();
+            const isAdmin = req.user.role === 'admin';
+
+            if (!isOwner && !isAdmin) {
                 return res.status(401).json({ message: 'Not authorized to delete this profile' });
+            }
+
+            // IF it is a regular user trying to delete their OWN account, verify password
+            if (isOwner && !isAdmin) {
+                if (!password) {
+                    return res.status(400).json({ message: 'Please provide your password to confirm deletion' });
+                }
+                
+                // Compare the typed password with the hashed password in the DB
+                const bcrypt = require('bcryptjs');
+                const isMatch = await bcrypt.compare(password, user.password);
+                
+                if (!isMatch) {
+                    return res.status(401).json({ message: 'Invalid password. Account deletion failed.' });
+                }
             }
 
             await user.deleteOne();
