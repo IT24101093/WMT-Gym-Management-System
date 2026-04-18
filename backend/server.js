@@ -1,17 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose'); // IMPORT MONGOOSE
+const mongoose = require('mongoose'); 
 require('dotenv').config();
 
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Allows app to accept JSON data in the body
 
 // MongoDB Database Connection
 mongoose.connect(process.env.MONGO_URI)
-   
   .then(() => {
     console.log('✅ MongoDB successfully connected!');
   })
@@ -24,6 +23,10 @@ app.get('/', (req, res) => {
   res.send('Gym Management API is running...');
 });
 
+// 🚀 YOUR ROUTES MUST GO HERE (Before app.listen)
+app.use('/api/users', require('./routes/userRoutes'));
+
+// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
