@@ -26,8 +26,13 @@ app.get('/', (req, res) => {
 // 🚀 YOUR ROUTES MUST GO HERE (Before app.listen)
 app.use('/api/users', require('./routes/userRoutes'));
 
+// ADD THIS NEW LINE FOR MEMBERSHIPS:
+app.use('/api/memberships', require('./routes/membershipRoutes'));
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
+
+
