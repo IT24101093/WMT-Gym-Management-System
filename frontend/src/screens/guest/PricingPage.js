@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_URL } from '@env';
 
 export default function PricingPage({ navigation }) {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://192.168.1.5:5000/api/memberships') 
+    fetch(`${API_URL}/api/memberships`)
       .then(res => res.json())
       .then(data => {
         setPlans(data);
         setLoading(false);
       })
       .catch((err) => {
-       console.log("Fetch failed. Check server IP!");
+       console.log("Fetch failed. Verify API_URL in .env!");
        setLoading(false);
       });
   }, []);
