@@ -8,18 +8,9 @@ import SupportPage from '../screens/guest/SupportPage'; // We will create this f
 import OnboardingScreen from '../screens/auth/OnboardingScreen';
 import GuestTabs from './GuestTabs'; 
 
-// 2. Simple placeholders for Login/Register (only declared ONCE)
-const LoginScreen = () => (
-  <View className="flex-1 items-center justify-center bg-gray-950">
-    <Text className="text-white text-2xl font-bold">Login Coming Soon 🔒</Text>
-  </View>
-);
+import LoginScreen from '../screens/auth/LoginScreen';
+import RegisterScreen from '../screens/auth/RegisterScreen';
 
-const RegisterScreen = () => (
-  <View className="flex-1 items-center justify-center bg-gray-950">
-    <Text className="text-white text-2xl font-bold">Register Coming Soon 📝</Text>
-  </View>
-);
 
 const Stack = createNativeStackNavigator();
 
