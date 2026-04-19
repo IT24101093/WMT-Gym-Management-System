@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, ActivityIndicator } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Import our Auth Context
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
