@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AppTabs from './src/navigation/AppTabs';
 
 // Import our Auth Context
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
@@ -26,14 +27,8 @@ const RootNavigator = () => {
     );
   }
 
-  // BOOM! If logged in, show a temporary text. If logged out, show our Onboarding Flow!
-  return user ? (
-    <View className="flex-1 items-center justify-center bg-gray-900">
-      <Text className="text-green-400 text-2xl font-bold">You are logged in! App Tabs go here.</Text>
-    </View>
-  ) : (
-    <AuthStack />
-  );
+  // BOOM! If logged in, show our App Tabs. If logged out, show our Onboarding Flow!
+  return user ? <AppTabs /> : <AuthStack />;
 };
 
 export default function App() {
