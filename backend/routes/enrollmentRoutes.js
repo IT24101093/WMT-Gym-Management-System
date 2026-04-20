@@ -9,6 +9,12 @@ const {
 } = require('../controllers/enrollmentController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
+// --- NEW: Import the Multer upload middleware ---
+const { upload } = require('../config/cloudinaryConfig');
+// Add upload.single('receipt') right after protect
+// 'receipt' is the exact key name you must use in Postman/React Native
+router.post('/', protect, upload.single('receipt'), enrollInPlan);
+
 router.post('/', protect, enrollInPlan);
 router.get('/', protect, admin, getAllEnrollments);
 router.get('/my-enrollments', protect, getMyEnrollments); // For the user's "My Plan" screen

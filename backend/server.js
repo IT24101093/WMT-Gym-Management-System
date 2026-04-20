@@ -3,6 +3,9 @@ const cors = require('cors');
 const mongoose = require('mongoose'); 
 require('dotenv').config();
 
+// NEW: Import cloudinary from your config file
+const { cloudinary } = require('./config/cloudinaryConfig');
+
 const app = express();
 
 // Middleware
@@ -16,6 +19,15 @@ mongoose.connect(process.env.MONGO_URI)
   })
   .catch((error) => {
     console.log('❌ MongoDB connection error:', error.message);
+  });
+
+// NEW: Cloudinary Connection Test
+cloudinary.api.ping()
+  .then(() => {
+    console.log('☁️  Cloudinary successfully connected!');
+  })
+  .catch((error) => {
+    console.log('❌ Cloudinary connection error:', error.message);
   });
 
 // Test Route

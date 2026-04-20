@@ -66,6 +66,11 @@ const loginUser = async (req, res) => {
                 _id: user.id,
                 name: user.name,
                 email: user.email,
+                phone: user.phone,   // 👈 Added
+                age: user.age,       // 👈 Added
+                nic: user.nic,       // 👈 Added
+                height: user.height, // 👈 ADDED FOR BMI
+                weight: user.weight, // 👈 ADDED FOR BMI
                 role: user.role,
                 token: generateToken(user._id)
             });
@@ -113,11 +118,12 @@ const updateUser = async (req, res) => {
         const user = await User.findById(req.params.id);
 
         if (user) {
-            // Check if the logged-in user matches the user they are trying to update
+            // Security: Only owner or admin can update
             if (user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
                 return res.status(401).json({ message: 'Not authorized to update this profile' });
             }
 
+            // Update basic fields
             user.name = req.body.name || user.name;
             user.email = req.body.email || user.email;
             user.phone = req.body.phone || user.phone;
@@ -125,8 +131,21 @@ const updateUser = async (req, res) => {
             user.height = req.body.height || user.height;
             user.weight = req.body.weight || user.weight;
 
-            // If the user wants to update their password, it will be hashed automatically by the pre-save hook
+            // 🔒 SECURITY CHECK: If they are trying to change their password
             if (req.body.password) {
+                if (!req.body.oldPassword) {
+                    return res.status(400).json({ message: 'Please provide your current password to set a new one.' });
+                }
+
+                // Verify the old password
+                const bcrypt = require('bcryptjs');
+                const isMatch = await bcrypt.compare(req.body.oldPassword, user.password);
+                
+                if (!isMatch) {
+                    return res.status(401).json({ message: 'Incorrect current password. Profile not updated.' });
+                }
+
+                // If it matches, set the new password (the pre-save hook will hash it)
                 user.password = req.body.password;
             }
 

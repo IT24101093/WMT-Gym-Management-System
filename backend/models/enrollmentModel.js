@@ -11,6 +11,11 @@ const enrollmentSchema = new mongoose.Schema({
         required: true,
         ref: 'Membership' // Links to your Membership model
     },
+    // --- NEW FIELD FOR THE IMAGE ENGINE ---
+    receiptUrl: {
+        type: String,
+        required: [true, 'Please upload a payment receipt']
+    },
     status: {
         type: String,
         required: true,

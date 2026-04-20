@@ -17,9 +17,18 @@ const enrollInPlan = async (req, res) => {
             return res.status(400).json({ message: 'You already have an active membership' });
         }
 
+        // --- NEW: Handle the File Upload ---
+        if (!req.file) {
+            return res.status(400).json({ message: 'Please upload a payment receipt image' });
+        }
+
+        // Multer-storage-cloudinary automatically uploads the file and gives us the URL in req.file.path
+        const uploadedReceiptUrl = req.file.path;
+
         const enrollment = await Enrollment.create({
             user: req.user._id,
             membership: membershipId,
+            receiptUrl: uploadedReceiptUrl, // Save the cloud URL here
             status: 'Pending' // Default until admin approves
         });
 
@@ -28,7 +37,6 @@ const enrollInPlan = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
 // @desc    Get all enrollments (For Admin Dashboard)
 // @route   GET /api/enrollments
 // @access  Private/Admin
