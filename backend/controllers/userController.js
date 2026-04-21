@@ -174,7 +174,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        const { password } = req.body; // <--- The frontend will send the typed password here
+        const { password } = req.body || {}; // <--- The frontend will send the typed password here
 
         if (user) {
             // Check if the person is the owner or an admin
@@ -210,4 +210,15 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getUserProfile, updateUser, deleteUser };
+
+const getAllUsers = async (req, res) => {
+    try {
+        // Fetch all users but DO NOT send passwords back!
+        const users = await User.find({}).select('-password');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { registerUser, loginUser, getUserProfile, updateUser, deleteUser, getAllUsers };

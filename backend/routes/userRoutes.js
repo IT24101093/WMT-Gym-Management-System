@@ -5,9 +5,10 @@ const {
     loginUser, 
     getUserProfile, 
     updateUser, 
-    deleteUser 
+    deleteUser,
+    getAllUsers
 } = require('../controllers/userController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect, admin } = require('../middleware/authMiddleware');
 
 // Public routes (No token needed)
 router.post('/register', registerUser);
@@ -17,5 +18,6 @@ router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 router.put('/:id', protect, updateUser);
 router.delete('/:id', protect, deleteUser);
+router.get('/', protect, admin, getAllUsers)
 
 module.exports = router;

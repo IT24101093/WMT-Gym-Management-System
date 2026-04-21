@@ -2,19 +2,33 @@ import "./global.css";
 import React, { useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text, ActivityIndicator } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AppTabs from './src/navigation/AppTabs';
+import { View, ActivityIndicator } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'; // 👈 Added this!
 
-// Import our Auth Context
+import AppTabs from './src/navigation/AppTabs';
+import AdminNavigator from './src/navigation/AdminNavigator';
+import AuthStack from './src/navigation/AuthStack';
+
+// 👇 Import your new Admin Screens here!
+import ManagePlansScreen from './src/screens/admin/ManagePlansScreen';
+import ManageUsersScreen from './src/screens/admin/ManageUsersScreen';
+
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
 
-// We will build these two files next!
-// import AuthStack from './src/navigation/AuthStack';
-// import AppTabs from './src/navigation/AppTabs';
+const Stack = createNativeStackNavigator();
 
-// Add this import near the top of App.js!
-import AuthStack from './src/navigation/AuthStack';
+// 🏗️ NEW: The Admin Stack 
+// This holds the Tabs AND the full-screen pages like Plans and Members
+const AdminStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    {/* 1. The Tabs are the base screen */}
+    <Stack.Screen name="AdminTabs" component={AdminNavigator} />
+    
+    {/* 2. These screens slide over the top of the tabs! */}
+    <Stack.Screen name="AdminPlans" component={ManagePlansScreen} />
+    <Stack.Screen name="ManageUsers" component={ManageUsersScreen} />
+  </Stack.Navigator>
+);
 
 const RootNavigator = () => {
   const { user, isLoading } = useContext(AuthContext);
@@ -27,8 +41,17 @@ const RootNavigator = () => {
     );
   }
 
-  // BOOM! If logged in, show our App Tabs. If logged out, show our Onboarding Flow!
-  return user ? <AppTabs /> : <AuthStack />;
+  if (user) {
+    // 🚦 REDIRECT ADMINS HERE
+    if (user.role === 'admin') { 
+      return <AdminStack />; // 👈 Now returning the STACK instead of just the Tabs
+    }
+    
+    // Regular Users go here
+    return <AppTabs />;
+  }
+
+  return <AuthStack />;
 };
 
 export default function App() {
