@@ -1,0 +1,27 @@
+# Dependency directories (CRITICAL: Keeps repo small)
+node_modules/
+backend/node_modules/
+.idea/
+# Secrets (CRITICAL: Keeps your database safe)
+.env
+backend/.env
+.env.local
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS Junk
+.DS_Store
+Thumbs.db
+
+
+frontend/node_modules/
+frontend/dist/
+frontend/.env
