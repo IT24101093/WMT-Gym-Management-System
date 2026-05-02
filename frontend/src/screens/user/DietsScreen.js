@@ -30,10 +30,10 @@ export default function DietsScreen({ navigation }) {
   };
 
   const fetchData = async () => {
-    try { 
-      const res = await api.get('/diets'); 
-      setDiets(res.data); 
-      
+    try {
+      const res = await api.get('/diets');
+      setDiets(res.data);
+
       // Fetch user profile to see current selection
       const userRes = await api.get('/users/profile');
       if (userRes.data.currentDietPlan) {
@@ -51,8 +51,12 @@ export default function DietsScreen({ navigation }) {
     setIsSelecting(true);
     try {
       await api.put('/users/profile/selections', { currentDietPlan: diet._id });
-      await fetchData();
-      showFeedback("Diet Activated", `You have selected the ${diet.planName}. Keep track of your fuel!`, "success");
+      showFeedback(
+        "Diet Activated",
+        `You have selected the ${diet.planName}. Keep track of your fuel!`,
+        "success",
+        () => navigation.navigate('MainTabs', { screen: 'Dashboard' })
+      );
     } catch (e) {
       showFeedback("Error", "Failed to update selection");
     } finally {
@@ -64,8 +68,12 @@ export default function DietsScreen({ navigation }) {
     setIsSelecting(true);
     try {
       await api.put('/users/profile/selections', { currentDietPlan: "" });
-      await fetchData();
-      showFeedback("Plan Removed", "Your active diet plan has been cleared.", "success");
+      showFeedback(
+        "Plan Removed",
+        "Your active diet plan has been cleared.",
+        "success",
+        () => navigation.navigate('MainTabs', { screen: 'Dashboard' })
+      );
     } catch (e) {
       showFeedback("Error", "Failed to remove plan");
     } finally {
@@ -77,8 +85,8 @@ export default function DietsScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View className="bg-slate-50 dark:bg-slate-900 rounded-[32px] mb-6 border border-slate-200 dark:border-slate-800 overflow-hidden">
-      <Image 
-        source={{ uri: item.imageUrl || 'https://images.unsplash.com/photo-1490645935967-10de6ba170a1?w=800' }} 
+      <Image
+        source={{ uri: item.imageUrl || 'https://images.unsplash.com/photo-1490645935967-10de6ba170a1?w=800' }}
         className="w-full h-40"
       />
       <View className="p-6">
@@ -88,7 +96,7 @@ export default function DietsScreen({ navigation }) {
             {item.description ? <Text className="text-slate-500 font-medium mt-1">{item.description}</Text> : null}
             {item.details ? (
               <View className="mt-3 bg-slate-100 dark:bg-slate-800 p-3 rounded-xl">
-                 <Text className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">{item.details}</Text>
+                <Text className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">{item.details}</Text>
               </View>
             ) : null}
           </View>
@@ -109,7 +117,7 @@ export default function DietsScreen({ navigation }) {
           ))}
         </View>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => handleSelect(item)}
           disabled={selectedPlanId === item._id || isSelecting}
           className={`mt-4 py-4 rounded-2xl items-center flex-row justify-center ${selectedPlanId === item._id ? 'bg-slate-200 dark:bg-slate-800' : 'bg-green-500 shadow-lg shadow-green-500/30'}`}
@@ -121,7 +129,7 @@ export default function DietsScreen({ navigation }) {
         </TouchableOpacity>
 
         {selectedPlanId === item._id && (
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={handleRemove}
             disabled={isSelecting}
             className="mt-3 py-3 rounded-2xl items-center border border-red-500/30"
@@ -161,8 +169,8 @@ export default function DietsScreen({ navigation }) {
         )}
         {loading ? <View className="flex-1 justify-center items-center"><ActivityIndicator color="#22c55e" size="large" /></View>
           : <FlatList data={diets} renderItem={renderItem} keyExtractor={i => i._id} showsVerticalScrollIndicator={false}
-              refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true); fetchData(); }} tintColor="#22c55e" />}
-              ListEmptyComponent={<Text className="text-center text-slate-500 mt-20 font-bold uppercase tracking-widest text-xs">No diet plans yet</Text>} />}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true); fetchData(); }} tintColor="#22c55e" />}
+            ListEmptyComponent={<Text className="text-center text-slate-500 mt-20 font-bold uppercase tracking-widest text-xs">No diet plans yet</Text>} />}
       </View>
 
       {/* 🔴 CUSTOM FEEDBACK MODAL */}

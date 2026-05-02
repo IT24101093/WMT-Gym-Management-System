@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity, Image, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import api from '../../api/axios';
@@ -10,6 +10,11 @@ export default function WorkoutsScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
   const [isSelecting, setIsSelecting] = useState(false);
+  const [feedback, setFeedback] = useState({ visible: false, title: '', message: '', type: 'success', onClose: null });
+
+  const showFeedback = (title, message, type = 'error', onClose = null) => {
+    setFeedback({ visible: true, title, message, type, onClose });
+  };
 
   const handleBack = () => {
     if (!navigation) {
@@ -52,10 +57,14 @@ export default function WorkoutsScreen({ navigation }) {
     setIsSelecting(true);
     try {
       await api.put('/users/profile/selections', { currentWorkoutPlan: workout._id });
-      await fetchWorkouts();
-      Alert.alert("Workout Selection", `Status updated: You are now tracking ${workout.title}.`);
+      showFeedback(
+        "Workout Activated",
+        `You are now tracking ${workout.title}. Stay focused!`,
+        "success",
+        () => navigation.navigate('MainTabs', { screen: 'Dashboard' })
+      );
     } catch (e) {
-      Alert.alert("Error", "Failed to update selection");
+      showFeedback("Error", "Failed to update selection");
     } finally {
       setIsSelecting(false);
     }
@@ -64,11 +73,15 @@ export default function WorkoutsScreen({ navigation }) {
   const handleRemove = async () => {
     setIsSelecting(true);
     try {
-      await api.put('/users/profile/selections', { currentWorkoutPlan: null });
-      await fetchWorkouts();
-      Alert.alert("Routine Removed", "Your active workout routine has been cleared.");
+      await api.put('/users/profile/selections', { currentWorkoutPlan: "" });
+      showFeedback(
+        "Routine Removed",
+        "Your active workout routine has been cleared.",
+        "success",
+        () => navigation.navigate('MainTabs', { screen: 'Dashboard' })
+      );
     } catch (e) {
-      Alert.alert("Error", "Failed to remove routine");
+      showFeedback("Error", "Failed to remove routine");
     } finally {
       setIsSelecting(false);
     }
@@ -195,6 +208,27 @@ export default function WorkoutsScreen({ navigation }) {
           />
         )}
       </View>
+
+      {/* FEEDBACK MODAL */}
+      <Modal animationType="fade" transparent={true} visible={feedback.visible} onRequestClose={() => setFeedback(prev => ({ ...prev, visible: false }))}>
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-center items-center px-6">
+          <View className="bg-white dark:bg-gray-900 w-full p-8 rounded-[30px] border border-gray-200 dark:border-gray-800 shadow-2xl items-center">
+            <View className={`p-4 rounded-full mb-4 ${feedback.type === 'success' ? 'bg-green-500/10' : 'bg-red-500/10'}`}>
+              <Ionicons name={feedback.type === 'success' ? "checkmark-circle" : "alert-circle"} size={50} color={feedback.type === 'success' ? "#22c55e" : "#ef4444"} />
+            </View>
+            <Text className="text-2xl font-black dark:text-white uppercase italic text-center mb-2">{feedback.title}</Text>
+            <Text className="text-gray-500 dark:text-gray-400 text-center mb-8 font-medium">{feedback.message}</Text>
+            <TouchableOpacity onPress={() => {
+              const cb = feedback.onClose;
+              setFeedback(prev => ({ ...prev, visible: false, onClose: null }));
+              if (cb) cb();
+            }} className={`w-full py-4 rounded-2xl items-center shadow-lg ${feedback.type === 'success' ? 'bg-green-500 shadow-green-500/30' : 'bg-red-500 shadow-red-500/30'}`}>
+              <Text className={feedback.type === 'success' ? "text-black font-black uppercase" : "text-white font-black uppercase"}>Okay</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </SafeAreaView>
   );
 }

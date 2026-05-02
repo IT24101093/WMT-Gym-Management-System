@@ -26,16 +26,19 @@ export default function AdminNavigator() {
           fontSize: 10,
           textTransform: "uppercase",
           letterSpacing: 0.5,
-          marginBottom: 5,
         },
         tabBarStyle: {
           backgroundColor: isDark ? "#0f172a" : "#ffffff",
           borderTopColor: isDark ? "#1e293b" : "#e2e8f0",
           borderTopWidth: 1,
-          height: 65,
+          height: 70,
           paddingTop: 8,
+          paddingBottom: 10,
           elevation: 0,
           shadowOpacity: 0,
+        },
+        tabBarIconStyle: {
+          marginBottom: 2,
         },
       }}
     >
@@ -54,8 +57,8 @@ export default function AdminNavigator() {
         name="Scanner"
         component={QRScannerScreen}
         options={{
-          tabBarButton: () => null, // 👈 Tab bar එකේ පෙන්වන්නේ නැතිව ඉන්න
-          tabBarVisible: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: 'none' },
         }}
       />
 
