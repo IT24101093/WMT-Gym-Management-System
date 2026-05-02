@@ -33,8 +33,10 @@ export const AuthProvider = ({ children }) => {
   // The Login Function
   const login = async (email, password) => {
     try {
+      console.log('Attempting login for:', email);
       // Calls your backend route: POST /api/users/login
       const response = await api.post('/users/login', { email, password });
+      console.log('Login response received:', response.data);
       
       // Destructure the token and the rest of the user data (name, role, bmi, etc.)
       const { token, ...userData } = response.data;
@@ -45,9 +47,11 @@ export const AuthProvider = ({ children }) => {
       
       // Update global state
       setUser(userData);
+      console.log('User logged in successfully:', userData);
       
       return { success: true };
     } catch (error) {
+      console.log('Login error:', error.response?.data || error.message);
       return { 
         success: false, 
         message: error.response?.data?.message || 'Something went wrong during login' 

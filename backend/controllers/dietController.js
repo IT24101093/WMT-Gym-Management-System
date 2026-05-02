@@ -53,8 +53,29 @@ const deleteDiet = async (req, res) => {
     }
 };
 
+const updateDiet = async (req, res) => {
+    try {
+        const diet = await Diet.findById(req.params.id);
+
+        if (!diet) {
+            return res.status(404).json({ message: 'Diet not found' });
+        }
+
+        const updatedDiet = await Diet.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        res.status(200).json(updatedDiet);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getDiets,
     createDiet,
-    deleteDiet
+    deleteDiet,
+    updateDiet
 };

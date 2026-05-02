@@ -24,6 +24,7 @@ export default function ManageDietsScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ planName: '', calories: '', description: '', details: '', imageUrl: '' });
 
   const fetchDiets = async () => {
@@ -41,7 +42,7 @@ export default function ManageDietsScreen({ navigation }) {
     fetchDiets();
   }, []);
 
-  const handleCreateDiet = async () => {
+  const handleSubmit = async () => {
     if (!form.planName.trim() || !form.calories) {
       Alert.alert('Missing Fields', 'Please add the plan name and calories.');
       return;
@@ -49,24 +50,44 @@ export default function ManageDietsScreen({ navigation }) {
 
     setIsSubmitting(true);
     try {
-      await api.post('/diets', {
+      const dietData = {
         planName: form.planName.trim(),
         calories: Number(form.calories),
         description: form.description.trim(),
         details: form.details.trim(),
         imageUrl: form.imageUrl.trim() || undefined,
         meals: [] // Initializing with empty meals for simplicity
-      });
+      };
+
+      if (editingId) {
+        await api.put(`/diets/${editingId}`, dietData);
+        Alert.alert('Diet Updated', 'The diet plan has been updated successfully.');
+      } else {
+        await api.post('/diets', dietData);
+        Alert.alert('Diet Added', 'The diet plan is now available for members.');
+      }
 
       setModalVisible(false);
       setForm({ planName: '', calories: '', description: '', details: '', imageUrl: '' });
+      setEditingId(null);
       await fetchDiets();
-      Alert.alert('Diet Added', 'The diet plan is now available for members.');
     } catch (error) {
-      Alert.alert('Error', error.response?.data?.message || 'Failed to add diet.');
+      Alert.alert('Error', error.response?.data?.message || `Failed to ${editingId ? 'update' : 'add'} diet.`);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleEditDiet = (diet) => {
+    setForm({
+      planName: diet.planName || '',
+      calories: diet.calories ? String(diet.calories) : '',
+      description: diet.description || '',
+      details: diet.details || '',
+      imageUrl: diet.imageUrl || ''
+    });
+    setEditingId(diet._id);
+    setModalVisible(true);
   };
 
   const handleDeleteDiet = async (id) => {
@@ -99,9 +120,14 @@ export default function ManageDietsScreen({ navigation }) {
             {item.description || 'No description provided.'}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => handleDeleteDiet(item._id)} className="bg-red-500/10 p-3 rounded-2xl border border-red-500/20">
-          <Ionicons name="trash-outline" size={20} color="#ef4444" />
-        </TouchableOpacity>
+        <View className="flex-row items-center gap-2">
+          <TouchableOpacity onPress={() => handleEditDiet(item)} className="bg-blue-500/10 p-3 rounded-2xl border border-blue-500/20 mr-2">
+            <Ionicons name="pencil-outline" size={20} color="#3b82f6" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleDeleteDiet(item._id)} className="bg-red-500/10 p-3 rounded-2xl border border-red-500/20">
+            <Ionicons name="trash-outline" size={20} color="#ef4444" />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -124,7 +150,11 @@ export default function ManageDietsScreen({ navigation }) {
             </View>
           </View>
           <TouchableOpacity
-            onPress={() => setModalVisible(true)}
+            onPress={() => {
+              setForm({ planName: '', calories: '', description: '', details: '', imageUrl: '' });
+              setEditingId(null);
+              setModalVisible(true);
+            }}
             className="w-12 h-12 bg-green-500 rounded-full items-center justify-center shadow-sm"
           >
             <Ionicons name="add" size={28} color="#0f172a" />
@@ -157,9 +187,13 @@ export default function ManageDietsScreen({ navigation }) {
               <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="flex-row justify-between items-center mb-6 mt-2">
                   <Text className="text-2xl font-extrabold text-slate-900 dark:text-white uppercase tracking-tight">
-                    Add Diet Plan
+                    {editingId ? 'Update Diet Plan' : 'Add Diet Plan'}
                   </Text>
-                  <TouchableOpacity onPress={() => setModalVisible(false)} className="bg-slate-100 dark:bg-slate-900 p-2 rounded-full">
+                  <TouchableOpacity onPress={() => {
+                    setModalVisible(false);
+                    setForm({ planName: '', calories: '', description: '', details: '', imageUrl: '' });
+                    setEditingId(null);
+                  }} className="bg-slate-100 dark:bg-slate-900 p-2 rounded-full">
                     <Ionicons name="close" size={24} color="#64748b" />
                   </TouchableOpacity>
                 </View>
@@ -198,14 +232,16 @@ export default function ManageDietsScreen({ navigation }) {
                 />
 
                 <TouchableOpacity
-                  onPress={handleCreateDiet}
+                  onPress={handleSubmit}
                   disabled={isSubmitting}
                   className="w-full bg-green-500 py-5 rounded-2xl items-center shadow-lg mt-2 mb-8"
                 >
                   {isSubmitting ? (
                     <ActivityIndicator color="#0f172a" />
                   ) : (
-                    <Text className="text-slate-900 font-extrabold uppercase text-lg tracking-wide">Save Diet Plan</Text>
+                    <Text className="text-slate-900 font-extrabold uppercase text-lg tracking-wide">
+                      {editingId ? 'Update Diet Plan' : 'Save Diet Plan'}
+                    </Text>
                   )}
                 </TouchableOpacity>
               </ScrollView>

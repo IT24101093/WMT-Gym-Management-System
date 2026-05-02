@@ -28,7 +28,7 @@ export default function WorkoutsScreen({ navigation }) {
     try {
       const response = await api.get('/workouts');
       setWorkouts(response.data);
-      
+
       // Fetch current selection
       const userRes = await api.get('/users/profile');
       if (userRes.data.currentWorkoutPlan) {
@@ -64,7 +64,7 @@ export default function WorkoutsScreen({ navigation }) {
   const handleRemove = async () => {
     setIsSelecting(true);
     try {
-      await api.put('/users/profile/selections', { currentWorkoutPlan: "" });
+      await api.put('/users/profile/selections', { currentWorkoutPlan: null });
       await fetchWorkouts();
       Alert.alert("Routine Removed", "Your active workout routine has been cleared.");
     } catch (e) {
@@ -78,8 +78,8 @@ export default function WorkoutsScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View className="bg-slate-50 dark:bg-slate-900 rounded-[32px] mb-6 border border-slate-200 dark:border-slate-800 overflow-hidden">
-      <Image 
-        source={{ uri: item.imageUrl || 'https://images.unsplash.com/photo-1517836357463-d25dfeac00ad?w=800' }} 
+      <Image
+        source={{ uri: item.imageUrl || 'https://images.unsplash.com/photo-1517836357463-d25dfeac00ad?w=800' }}
         className="w-full h-40"
       />
       <View className="p-6">
@@ -93,7 +93,7 @@ export default function WorkoutsScreen({ navigation }) {
         ) : null}
         {item.details ? (
           <View className="mb-4 bg-slate-100 dark:bg-slate-800 p-3 rounded-xl">
-             <Text className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">{item.details}</Text>
+            <Text className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">{item.details}</Text>
           </View>
         ) : null}
         <View className="flex-row gap-x-2 mb-4">
@@ -115,7 +115,7 @@ export default function WorkoutsScreen({ navigation }) {
           </View>
         </View>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => handleSelect(item)}
           disabled={selectedWorkoutId === item._id || isSelecting}
           className={`py-4 rounded-2xl items-center flex-row justify-center ${selectedWorkoutId === item._id ? 'bg-slate-200 dark:bg-slate-800' : 'bg-green-500 shadow-lg shadow-green-500/30'}`}
@@ -127,7 +127,7 @@ export default function WorkoutsScreen({ navigation }) {
         </TouchableOpacity>
 
         {selectedWorkoutId === item._id && (
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={handleRemove}
             disabled={isSelecting}
             className="mt-3 py-3 rounded-2xl items-center border border-red-500/30"

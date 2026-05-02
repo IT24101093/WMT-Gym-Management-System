@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity, Image, Alert, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import api from '../../api/axios';
@@ -10,6 +10,11 @@ export default function DietsScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedPlanId, setSelectedPlanId] = useState(null);
   const [isSelecting, setIsSelecting] = useState(false);
+  const [feedback, setFeedback] = useState({ visible: false, title: '', message: '', type: 'success', onClose: null });
+
+  const showFeedback = (title, message, type = 'error', onClose = null) => {
+    setFeedback({ visible: true, title, message, type, onClose });
+  };
 
   const handleBack = () => {
     if (!navigation) {
@@ -47,9 +52,9 @@ export default function DietsScreen({ navigation }) {
     try {
       await api.put('/users/profile/selections', { currentDietPlan: diet._id });
       await fetchData();
-      Alert.alert("Diet Activated", `You have selected the ${diet.planName}. Keep track of your fuel!`);
+      showFeedback("Diet Activated", `You have selected the ${diet.planName}. Keep track of your fuel!`, "success");
     } catch (e) {
-      Alert.alert("Error", "Failed to update selection");
+      showFeedback("Error", "Failed to update selection");
     } finally {
       setIsSelecting(false);
     }
@@ -60,9 +65,9 @@ export default function DietsScreen({ navigation }) {
     try {
       await api.put('/users/profile/selections', { currentDietPlan: "" });
       await fetchData();
-      Alert.alert("Plan Removed", "Your active diet plan has been cleared.");
+      showFeedback("Plan Removed", "Your active diet plan has been cleared.", "success");
     } catch (e) {
-      Alert.alert("Error", "Failed to remove plan");
+      showFeedback("Error", "Failed to remove plan");
     } finally {
       setIsSelecting(false);
     }
@@ -159,6 +164,27 @@ export default function DietsScreen({ navigation }) {
               refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true); fetchData(); }} tintColor="#22c55e" />}
               ListEmptyComponent={<Text className="text-center text-slate-500 mt-20 font-bold uppercase tracking-widest text-xs">No diet plans yet</Text>} />}
       </View>
+
+      {/* 🔴 CUSTOM FEEDBACK MODAL */}
+      <Modal animationType="fade" transparent={true} visible={feedback.visible} onRequestClose={() => setFeedback(prev => ({ ...prev, visible: false }))}>
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-center items-center px-6">
+          <View className="bg-white dark:bg-gray-900 w-full p-8 rounded-[30px] border border-gray-200 dark:border-gray-800 shadow-2xl items-center">
+            <View className={`p-4 rounded-full mb-4 ${feedback.type === 'success' ? 'bg-green-500/10' : 'bg-red-500/10'}`}>
+              <Ionicons name={feedback.type === 'success' ? "checkmark-circle" : "alert-circle"} size={50} color={feedback.type === 'success' ? "#22c55e" : "#ef4444"} />
+            </View>
+            <Text className="text-2xl font-black dark:text-white uppercase italic text-center mb-2">{feedback.title}</Text>
+            <Text className="text-gray-500 dark:text-gray-400 text-center mb-8 font-medium">{feedback.message}</Text>
+            <TouchableOpacity onPress={() => {
+              const cb = feedback.onClose;
+              setFeedback(prev => ({ ...prev, visible: false, onClose: null }));
+              if (cb) cb();
+            }} className={`w-full py-4 rounded-2xl items-center shadow-lg ${feedback.type === 'success' ? 'bg-green-500 shadow-green-500/30' : 'bg-red-500 shadow-red-500/30'}`}>
+              <Text className={feedback.type === 'success' ? "text-black font-black uppercase" : "text-white font-black uppercase"}>Okay</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </SafeAreaView>
   );
 }
