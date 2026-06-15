@@ -668,7 +668,7 @@ npm test
 ### 🔑 Authentication & Entry
 | Onboarding / Home | Login Screen | Registration |
 |---|---|---|
-| ![Onboarding](screenshots/onboarding.png) | ![Login](screenshots/login.png) | ![Register](screenshots/register.png) |
+| ![Onboarding](https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a) | ![Login](screenshots/login.png) | ![Register](screenshots/register.png) |
 
 ### 1️⃣ User Auth & Membership Management (Member 1)
 | Browse Membership Plans | Upload Payment Receipt | Admin: Approve Enrollments |
@@ -708,3 +708,5 @@ This project is licensed under the **ISC License**.
 **Built with ❤️ as a university group project using React Native & Node.js**
 
 </div>
+<img width="720" height="1513" alt="Screenshot_20260616-023715 frontend" src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" />
+
