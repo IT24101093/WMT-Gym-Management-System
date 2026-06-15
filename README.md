@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+
 
 # 🏋️ WMT Gym Management System
 
