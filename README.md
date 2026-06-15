@@ -1,4 +1,4 @@
-
+<div align="center">
 
 # 🏋️ WMT Gym Management System
 
@@ -21,6 +21,7 @@
 ## 📖 Table of Contents
 
 - [Overview](#-overview)
+- [Team Members & Contributions](#-team-members--contributions)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Architecture](#-architecture)
@@ -30,14 +31,153 @@
 - [API Endpoints](#-api-endpoints)
 - [Database Models](#-database-models)
 - [Testing](#-testing)
-- [Screenshots](#-screenshots)
 - [License](#-license)
 
 ---
 
 ## 🔎 Overview
 
-**WMT Gym Management System** is a comprehensive mobile application designed to streamline gym operations for both **administrators** and **members**. The system provides role-based access with distinct dashboards — admins can manage plans, trainers, users, and approve enrollments, while members can enroll in membership plans, select workout & diet routines, book trainers, and track their fitness progress over time.
+**WMT Gym Management System** is a comprehensive mobile application developed as a university group project to streamline gym operations for both **administrators** and **members**. The system provides role-based access with distinct dashboards — admins can manage plans, trainers, users, and approve enrollments, while members can enroll in membership plans, select workout & diet routines, book trainers, and track their fitness progress over time.
+
+The project is divided into **5 core components**, each independently developed by a team member and integrated into a single cohesive application.
+
+---
+
+## 👥 Team Members & Contributions
+
+This project was collaboratively built by a team of 5 members. Each member was responsible for a specific component, handling both the **frontend (React Native)** and **backend (Node.js + MongoDB)** for their respective feature.
+
+---
+
+### 1️⃣ User Authentication & Membership Management
+**👤 Member Name** — *IT24XXXXXX*
+
+> Core system foundation — user registration, login, JWT authentication, membership plans, enrollment with receipt uploads, and admin approval workflow.
+
+| Layer | Files |
+|---|---|
+| **Backend — Models** | `userModel.js`, `membershipModel.js`, `enrollmentModel.js` |
+| **Backend — Controllers** | `userController.js`, `membershipController.js`, `enrollmentController.js` |
+| **Backend — Routes** | `userRoutes.js`, `membershipRoutes.js`, `enrollmentRoutes.js` |
+| **Backend — Middleware** | `authMiddleware.js` (JWT protect + admin role guard) |
+| **Backend — Config** | `cloudinaryConfig.js` (receipt image upload via Cloudinary + Multer) |
+| **Backend — Utils** | `ensureDefaultAdmin.js` (auto-creates default admin on startup) |
+| **Frontend — Screens** | `LoginScreen.js`, `RegisterScreen.js`, `OnboardingScreen.js` |
+| **Frontend — Screens** | `PlansScreen.js` (browse plans, upload receipt, enroll) |
+| **Frontend — Screens** | `ProfileScreen.js`, `SettingsScreen.js` |
+| **Frontend — Context** | `AuthContext.js` (global auth state — login, logout, token management) |
+| **Frontend — API** | `axios.js` (Axios instance with base URL & auth interceptors) |
+| **Frontend — Navigation** | `AuthStack.js`, `AppNavigator.js`, `AppTabs.js`, `GuestTabs.js` |
+| **Frontend — Admin** | `AdminDashboard.js`, `PendingApprovals.js`, `ManagePlansScreen.js`, `ManageUsersScreen.js` |
+
+**Key Features Implemented:**
+- 🔐 JWT-based authentication with Expo SecureStore
+- 📝 User registration with NIC, height, weight, age validation
+- 💳 Membership enrollment with payment receipt upload to Cloudinary
+- ✅ Admin approval/rejection workflow for pending enrollments
+- 👥 Admin user management (view, search, manage all members)
+- 🔲 QR code generation per user for gym check-in
+
+---
+
+### 2️⃣ Trainer Management
+**👤 Member Name** — *IT24XXXXXX*
+
+> Trainer profiles, availability, image uploads, star ratings, user reviews, and trainer selection for members.
+
+| Layer | Files |
+|---|---|
+| **Backend — Model** | `trainerModel.js` (includes embedded `reviewSchema` for ratings) |
+| **Backend — Controller** | `trainerController.js` |
+| **Backend — Routes** | `trainerRoutes.js` |
+| **Frontend — Screen** | `TrainersScreen.js` (browse trainers, view details, submit reviews, select trainer) |
+| **Frontend — Admin** | `ManageTrainersScreen.js` (CRUD trainers with image upload) |
+
+**Key Features Implemented:**
+- 👨‍🏫 Trainer profile cards with specialization, experience, bio, and availability hours
+- ⭐ Star rating & review system (users can rate and comment)
+- 📸 Trainer image upload via Cloudinary
+- 🔍 Browse and select a personal trainer
+- 🛡️ Admin CRUD operations for trainer management
+
+---
+
+### 3️⃣ Workout Plan Management
+**👤 Member Name** — *IT24XXXXXX*
+
+> Workout plan library with difficulty levels, calorie tracking, and user enrollment into workout routines.
+
+| Layer | Files |
+|---|---|
+| **Backend — Model** | `workoutModel.js` |
+| **Backend — Controller** | `workoutController.js` |
+| **Backend — Routes** | `workoutRoutes.js` |
+| **Frontend — Screen** | `WorkoutsScreen.js` (browse, view details, enroll/unenroll from workouts) |
+| **Frontend — Admin** | `ManageWorkoutsScreen.js` (CRUD workout plans) |
+
+**Key Features Implemented:**
+- 🏋️ Workout plan cards with title, description, duration, and calories burned
+- 📊 Difficulty levels: Beginner → Intermediate → Advanced → Expert
+- ✅ One-tap enroll/unenroll from workout plans
+- 🖼️ Workout cover images
+- 🛡️ Admin CRUD operations for workout management
+
+---
+
+### 4️⃣ Class Booking & Progress Tracking
+**👤 Member Name** — *IT24XXXXXX*
+
+> Trainer session booking system with status tracking, and a personal fitness progress logger for weight and workout history.
+
+| Layer | Files |
+|---|---|
+| **Backend — Models** | `bookingModel.js`, `progressModel.js` |
+| **Backend — Controllers** | `bookingController.js`, `progressController.js` |
+| **Backend — Routes** | `bookingRoutes.js`, `progressRoutes.js` |
+| **Frontend — Screens** | `BookingsScreen.js` (create, view, cancel bookings) |
+| **Frontend — Screens** | `ProgressScreen.js` (log weight, workouts, and notes over time) |
+| **Frontend — Admin** | `ManageProgressScreen.js` (view member progress logs) |
+
+**Key Features Implemented:**
+- 📅 Book training sessions with a specific trainer, date, and class name
+- 🔄 Booking status flow: Pending → Confirmed → Completed / Cancelled
+- 📈 Daily progress logging (weight, workout completed, notes)
+- 📊 Historical progress view for tracking fitness journey
+- 🛡️ Admin can monitor all member progress entries
+
+---
+
+### 5️⃣ Diet Plan Management
+**👤 Member Name** — *IT24XXXXXX*
+
+> Diet plan catalog with detailed meal breakdowns, calorie information, and user enrollment.
+
+| Layer | Files |
+|---|---|
+| **Backend — Model** | `dietModel.js` |
+| **Backend — Controller** | `dietController.js` |
+| **Backend — Routes** | `dietRoutes.js` |
+| **Frontend — Screen** | `DietsScreen.js` (browse, view details, enroll/unenroll from diet plans) |
+| **Frontend — Admin** | `ManageDietsScreen.js` (CRUD diet plans with meal details) |
+
+**Key Features Implemented:**
+- 🥗 Diet plan cards with name, description, calorie target, and cover image
+- 🍽️ Detailed meal breakdowns (meal name, items, kcal per meal)
+- ✅ One-tap enroll/unenroll from diet plans
+- 🖼️ Diet plan cover images
+- 🛡️ Admin CRUD operations for diet plan management
+
+---
+
+### 📊 Component Contribution Summary
+
+| # | Component | Team Member | Student ID | Backend Files | Frontend Screens |
+|---|---|---|---|---|---|
+| 1 | User Auth & Membership Management | Member Name | IT24XXXXXX | 8 files | 9 screens |
+| 2 | Trainer Management | Member Name | IT24XXXXXX | 3 files | 2 screens |
+| 3 | Workout Plan Management | Member Name | IT24XXXXXX | 3 files | 2 screens |
+| 4 | Class Booking & Progress Tracking | Member Name | IT24XXXXXX | 6 files | 3 screens |
+| 5 | Diet Plan Management | Member Name | IT24XXXXXX | 3 files | 2 screens |
 
 ---
 
@@ -68,11 +208,6 @@
 | **👨‍🏫 Trainer Management** | Add, edit, and remove trainers (with image upload to Cloudinary) |
 | **📈 Progress Monitoring** | View progress logs submitted by members |
 | **📷 QR Scanner** | Scan member QR codes for gym check-in attendance tracking |
-
-### 🌐 Guest Features
-- View pricing & membership plans
-- Access support/contact information
-- Settings and onboarding flow
 
 ---
 
@@ -198,10 +333,10 @@ WMT-Gym-Management-System/
 │   │   │   │   └── OnboardingScreen.js
 │   │   │   ├── user/
 │   │   │   │   ├── DashboardScreen.js
-│   │   │   │   ├── PlansScreen.js       # Membership enrollment + receipt upload
+│   │   │   │   ├── PlansScreen.js
 │   │   │   │   ├── WorkoutsScreen.js
 │   │   │   │   ├── DietsScreen.js
-│   │   │   │   ├── TrainersScreen.js    # Browse, book & review trainers
+│   │   │   │   ├── TrainersScreen.js
 │   │   │   │   ├── BookingsScreen.js
 │   │   │   │   ├── ProgressScreen.js
 │   │   │   │   ├── ProfileScreen.js
@@ -238,7 +373,7 @@ WMT-Gym-Management-System/
 
 ### Prerequisites
 
-- **Node.js** v18+ 
+- **Node.js** v18+
 - **npm** or **yarn**
 - **Expo CLI** — `npm install -g expo-cli`
 - **MongoDB Atlas** account (or local MongoDB instance)
@@ -372,24 +507,6 @@ Scan the QR code with **Expo Go** (Android/iOS) to launch the app.
 | `PUT` | `/:id` | 🔒 Admin | Update enrollment status (Approve/Reject) |
 | `DELETE` | `/:id` | 🔒 User | Cancel/delete an enrollment |
 
-### Diets — `/api/diets`
-
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| `GET` | `/` | 🔒 User | Get all diet plans |
-| `POST` | `/` | 🔒 Admin | Create a new diet plan |
-| `PUT` | `/:id` | 🔒 Admin | Update a diet plan |
-| `DELETE` | `/:id` | 🔒 Admin | Delete a diet plan |
-
-### Workouts — `/api/workouts`
-
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| `GET` | `/` | 🔒 User | Get all workout plans |
-| `POST` | `/` | 🔒 Admin | Create a new workout plan |
-| `PUT` | `/:id` | 🔒 Admin | Update a workout plan |
-| `DELETE` | `/:id` | 🔒 Admin | Delete a workout plan |
-
 ### Trainers — `/api/trainers`
 
 | Method | Endpoint | Auth | Description |
@@ -400,13 +517,14 @@ Scan the QR code with **Expo Go** (Android/iOS) to launch the app.
 | `DELETE` | `/:id` | 🔒 Admin | Remove a trainer |
 | `POST` | `/:id/reviews` | 🔒 User | Submit a review for a trainer |
 
-### Progress — `/api/progress`
+### Workouts — `/api/workouts`
 
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
-| `GET` | `/` | 🔒 User | Get user's progress logs |
-| `POST` | `/` | 🔒 User | Add a new progress entry |
-| `DELETE` | `/:id` | 🔒 User | Delete a progress entry |
+| `GET` | `/` | 🔒 User | Get all workout plans |
+| `POST` | `/` | 🔒 Admin | Create a new workout plan |
+| `PUT` | `/:id` | 🔒 Admin | Update a workout plan |
+| `DELETE` | `/:id` | 🔒 Admin | Delete a workout plan |
 
 ### Bookings — `/api/bookings`
 
@@ -415,6 +533,23 @@ Scan the QR code with **Expo Go** (Android/iOS) to launch the app.
 | `GET` | `/` | 🔒 User | Get user's bookings |
 | `POST` | `/` | 🔒 User | Create a new booking |
 | `DELETE` | `/:id` | 🔒 User | Cancel a booking |
+
+### Progress — `/api/progress`
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `GET` | `/` | 🔒 User | Get user's progress logs |
+| `POST` | `/` | 🔒 User | Add a new progress entry |
+| `DELETE` | `/:id` | 🔒 User | Delete a progress entry |
+
+### Diets — `/api/diets`
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `GET` | `/` | 🔒 User | Get all diet plans |
+| `POST` | `/` | 🔒 Admin | Create a new diet plan |
+| `PUT` | `/:id` | 🔒 Admin | Update a diet plan |
+| `DELETE` | `/:id` | 🔒 Admin | Delete a diet plan |
 
 ---
 
@@ -517,20 +652,20 @@ npm test
 
 ### Test Coverage
 
-| Module | Test File |
-|---|---|
-| User Auth & CRUD | `tests/user.test.js` |
-| Enrollment Flow | `tests/enrollment.test.js` |
-| Membership Plans | `tests/membership.test.js` |
-| Workouts | `tests/workout.test.js` |
-| Diets | `tests/diet.test.js` |
-| Bookings | `tests/booking.test.js` |
+| Module | Test File | Component Owner |
+|---|---|---|
+| User Auth & CRUD | `tests/user.test.js` | Member 1 |
+| Enrollment Flow | `tests/enrollment.test.js` | Member 1 |
+| Membership Plans | `tests/membership.test.js` | Member 1 |
+| Workouts | `tests/workout.test.js` | Member 3 |
+| Diets | `tests/diet.test.js` | Member 5 |
+| Bookings | `tests/booking.test.js` | Member 4 |
 
 ---
 
 ## 📸 Screenshots
 
-> *Coming soon — add screenshots of your app here!*
+> *Add screenshots of your app here!*
 
 <!-- 
 ### User Screens
@@ -546,16 +681,6 @@ npm test
 
 ---
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
 ## 📄 License
 
 This project is licensed under the **ISC License**.
@@ -564,7 +689,6 @@ This project is licensed under the **ISC License**.
 
 <div align="center">
 
-**Built with ❤️ using React Native & Node.js**
+**Built with ❤️ as a university group project using React Native & Node.js**
 
 </div>
-]]>
