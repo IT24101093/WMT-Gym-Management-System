@@ -665,11 +665,14 @@ npm test
 
 ## 📸 App Screenshots
 
+## 📸 App Screenshots
+
 | | | |
 |:---:|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" width="240" /><br><sub>Onboarding</sub> | <img src="https://github.com/user-attachments/assets/a52b0720-be89-45f4-a0a8-a78ab6e2685f" width="240" /><br><sub>Login Screen</sub> | <img src="https://github.com/user-attachments/assets/d6d14fc0-2134-46a0-ad48-3a95cac8c776" width="240" /><br><sub>Register Screen</sub> |
-| <img src="https://github.com/user-attachments/assets/fd8bbdce-6af9-4b05-bb87-2ab33388dbce" width="240" /><br><sub>Membership Plans</sub> | <img src="https://github.com/user-attachments/assets/b2b0b736-88c8-4d6c-ade2-e680a2fd3c1c" width="240" /><br><sub>Admin Dashboard</sub> | <img src="https://github.com/user-attachments/assets/449f34dd-d4de-451b-942c-f6b94452378b" width="240" /><br><sub>Member Dashboard</sub> |
-| <img src="https://github.com/user-attachments/assets/af38663e-8bbc-4bd1-9068-752fe9b2ab6c" width="240" /><br><sub>Workout Schemes</sub> | <img src="https://github.com/user-attachments/assets/0bfcf7d6-4314-4614-87e9-42eabe50c1e5" width="240" /><br><sub>Diet Routines</sub> | <img src="https://github.com/user-attachments/assets/abc29f6e-7c2f-4346-af35-12970f7efb3f" width="240" /><br><sub>Trainer Booking</sub> |
+| <img src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" width="240" /> | <img src="https://github.com/user-attachments/assets/a52b0720-be89-45f4-a0a8-a78ab6e2685f" width="240" /> | <img src="https://github.com/user-attachments/assets/d6d14fc0-2134-46a0-ad48-3a95cac8c776" width="240" /> |
+| <img src="https://github.com/user-attachments/assets/fd8bbdce-6af9-4b05-bb87-2ab33388dbce" width="240" /> | <img src="https://github.com/user-attachments/assets/b2b0b736-88c8-4d6c-ade2-e680a2fd3c1c" width="240" /> | <img src="https://github.com/user-attachments/assets/449f34dd-d4de-451b-942c-f6b94452378b" width="240" /> |
+| <img src="https://github.com/user-attachments/assets/af38663e-8bbc-4bd1-9068-752fe9b2ab6c" width="240" /> | <img src="https://github.com/user-attachments/assets/0bfcf7d6-4314-4614-87e9-42eabe50c1e5" width="240" /> | <img src="https://github.com/user-attachments/assets/abc29f6e-7c2f-4346-af35-12970f7efb3f" width="240" /> |
+
 ---
 
 ## 📄 License
@@ -683,5 +686,5 @@ This project is licensed under the **ISC License**.
 **Built with ❤️ as a university group project using React Native & Node.js**
 
 </div>
-<img width="720" height="1513" alt="Screenshot_20260616-023715 frontend" src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" />
+
 
