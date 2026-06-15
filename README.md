@@ -663,15 +663,13 @@ npm test
 
 ---
 
-## 📸 App Screenshots
 
 ## 📸 App Screenshots
 
 | | | |
 |:---:|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" width="240" /> | <img src="https://github.com/user-attachments/assets/a52b0720-be89-45f4-a0a8-a78ab6e2685f" width="240" /> | <img src="https://github.com/user-attachments/assets/d6d14fc0-2134-46a0-ad48-3a95cac8c776" width="240" /> |
-| <img src="https://github.com/user-attachments/assets/fd8bbdce-6af9-4b05-bb87-2ab33388dbce" width="240" /> | <img src="https://github.com/user-attachments/assets/b2b0b736-88c8-4d6c-ade2-e680a2fd3c1c" width="240" /> | <img src="https://github.com/user-attachments/assets/449f34dd-d4de-451b-942c-f6b94452378b" width="240" /> |
-| <img src="https://github.com/user-attachments/assets/af38663e-8bbc-4bd1-9068-752fe9b2ab6c" width="240" /> | <img src="https://github.com/user-attachments/assets/0bfcf7d6-4314-4614-87e9-42eabe50c1e5" width="240" /> | <img src="https://github.com/user-attachments/assets/abc29f6e-7c2f-4346-af35-12970f7efb3f" width="240" /> |
+| <img src="https://github.com/user-attachments/assets/91690812-69ed-410a-ac4a-1e671aa6914a" width="240" /> | <img src="https://github.com/user-attachments/assets/2e11ac5d-01e6-43ce-9d15-211d4309da8c" width="240" /> | <img src="https://github.com/user-attachments/assets/029748ea-21b9-4d61-976d-6d05a8ac06d7" width="240" /> |
+| <img src="https://github.com/user-attachments/assets/ced0d6fb-0bb5-4987-a4c9-038360900555" width="240" /> | <img src="https://github.com/user-attachments/assets/b9c81ff5-e2e9-457a-b331-67859e2dd4c8" width="240" /> | <img src="https://github.com/user-attachments/assets/718f6199-bfdd-4ab3-90ef-10abb9b4c6c4" width="240" /> |
 
 ---
 
