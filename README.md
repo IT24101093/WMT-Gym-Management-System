@@ -668,7 +668,7 @@ npm test
 ### 🔑 Authentication & Entry
 | Onboarding / Home | Login Screen | Registration |
 |---|---|---|
-| ![Onboarding](https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a) | ![Login](screenshots/login.png) | ![Register](screenshots/register.png) |
+| <img src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" width="250" /> | ![Login](screenshots/login.png) | ![Register](screenshots/register.png) |
 
 ### 1️⃣ User Auth & Membership Management (Member 1)
 | Browse Membership Plans | Upload Payment Receipt | Admin: Approve Enrollments |
