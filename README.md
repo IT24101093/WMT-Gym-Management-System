@@ -663,39 +663,13 @@ npm test
 
 ---
 
-## 📸 Screenshots
+## 📸 App Screenshots
 
-### 🔑 Authentication & Entry
-### 🔑 Authentication & Entry
-| Onboarding / Home | Login Screen | Registration |
-|---|---|---|
-| <img src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" width="250" /> | <img src="https://github.com/user-attachments/assets/a52b0720-be89-45f4-a0a8-a78ab6e2685f" width="250" /> | <img src="https://github.com/user-attachments/assets/d6d14fc0-2134-46a0-ad48-3a95cac8c776" width="250" /> |
-
-### 1️⃣ User Auth & Membership Management (Member 1)
-| Browse Membership Plans | Upload Payment Receipt | Admin: Approve Enrollments |
-|---|---|---|
-| ![Plans](screenshots/plans.png) | ![Receipt Upload](screenshots/receipt_upload.png) | ![Admin Approvals](screenshots/admin_approvals.png) |
-
-### 2️⃣ Trainer Management (Member 2)
-| Member: Browse Trainers | Member: Trainer Reviews | Admin: Manage Trainers |
-|---|---|---|
-| ![Trainers](screenshots/trainers.png) | ![Trainer Reviews](screenshots/trainer_reviews.png) | ![Manage Trainers](screenshots/manage_trainers.png) |
-
-### 3️⃣ Workout Plan Management (Member 3)
-| Member: Workout Library | Member: Workout Details | Admin: Manage Workouts |
-|---|---|---|
-| ![Workouts](screenshots/workouts.png) | ![Workout Details](screenshots/workout_details.png) | ![Manage Workouts](screenshots/manage_workouts.png) |
-
-### 4️⃣ Class Booking & Progress Tracking (Member 4)
-| Member: Book a Session | Member: Progress Log | Admin: Monitor Progress |
-|---|---|---|
-| ![Bookings](screenshots/bookings.png) | ![Progress Tracking](screenshots/progress.png) | ![Admin Progress View](screenshots/admin_progress.png) |
-
-### 5️⃣ Diet Plan Management (Member 5)
-| Member: Diet Catalog | Member: Meal Breakdowns | Admin: Manage Diets |
-|---|---|---|
-| ![Diets](screenshots/diets.png) | ![Diet Details](screenshots/diet_details.png) | ![Manage Diets](screenshots/manage_diets.png) |
-
+| | | |
+|:---:|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/5b091a71-eca9-425b-83f4-e0326855415a" width="240" /><br><sub>Onboarding</sub> | <img src="https://github.com/user-attachments/assets/a52b0720-be89-45f4-a0a8-a78ab6e2685f" width="240" /><br><sub>Login Screen</sub> | <img src="https://github.com/user-attachments/assets/d6d14fc0-2134-46a0-ad48-3a95cac8c776" width="240" /><br><sub>Register Screen</sub> |
+| <img src="https://github.com/user-attachments/assets/fd8bbdce-6af9-4b05-bb87-2ab33388dbce" width="240" /><br><sub>Membership Plans</sub> | <img src="https://github.com/user-attachments/assets/b2b0b736-88c8-4d6c-ade2-e680a2fd3c1c" width="240" /><br><sub>Admin Dashboard</sub> | <img src="https://github.com/user-attachments/assets/449f34dd-d4de-451b-942c-f6b94452378b" width="240" /><br><sub>Member Dashboard</sub> |
+| <img src="https://github.com/user-attachments/assets/af38663e-8bbc-4bd1-9068-752fe9b2ab6c" width="240" /><br><sub>Workout Schemes</sub> | <img src="https://github.com/user-attachments/assets/0bfcf7d6-4314-4614-87e9-42eabe50c1e5" width="240" /><br><sub>Diet Routines</sub> | <img src="https://github.com/user-attachments/assets/abc29f6e-7c2f-4346-af35-12970f7efb3f" width="240" /><br><sub>Trainer Booking</sub> |
 ---
 
 ## 📄 License
