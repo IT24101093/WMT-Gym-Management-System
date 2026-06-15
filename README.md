@@ -665,19 +665,35 @@ npm test
 
 ## 📸 Screenshots
 
-> *Add screenshots of your app here!*
-
-<!-- 
-### User Screens
-| Dashboard | Plans | Trainers |
+### 🔑 Authentication & Entry
+| Onboarding / Home | Login Screen | Registration |
 |---|---|---|
-| ![Dashboard](screenshots/dashboard.png) | ![Plans](screenshots/plans.png) | ![Trainers](screenshots/trainers.png) |
+| ![Onboarding](screenshots/onboarding.png) | ![Login](screenshots/login.png) | ![Register](screenshots/register.png) |
 
-### Admin Screens
-| Admin Dashboard | Approvals | Manage Users |
+### 1️⃣ User Auth & Membership Management (Member 1)
+| Browse Membership Plans | Upload Payment Receipt | Admin: Approve Enrollments |
 |---|---|---|
-| ![Admin](screenshots/admin.png) | ![Approvals](screenshots/approvals.png) | ![Users](screenshots/users.png) |
--->
+| ![Plans](screenshots/plans.png) | ![Receipt Upload](screenshots/receipt_upload.png) | ![Admin Approvals](screenshots/admin_approvals.png) |
+
+### 2️⃣ Trainer Management (Member 2)
+| Member: Browse Trainers | Member: Trainer Reviews | Admin: Manage Trainers |
+|---|---|---|
+| ![Trainers](screenshots/trainers.png) | ![Trainer Reviews](screenshots/trainer_reviews.png) | ![Manage Trainers](screenshots/manage_trainers.png) |
+
+### 3️⃣ Workout Plan Management (Member 3)
+| Member: Workout Library | Member: Workout Details | Admin: Manage Workouts |
+|---|---|---|
+| ![Workouts](screenshots/workouts.png) | ![Workout Details](screenshots/workout_details.png) | ![Manage Workouts](screenshots/manage_workouts.png) |
+
+### 4️⃣ Class Booking & Progress Tracking (Member 4)
+| Member: Book a Session | Member: Progress Log | Admin: Monitor Progress |
+|---|---|---|
+| ![Bookings](screenshots/bookings.png) | ![Progress Tracking](screenshots/progress.png) | ![Admin Progress View](screenshots/admin_progress.png) |
+
+### 5️⃣ Diet Plan Management (Member 5)
+| Member: Diet Catalog | Member: Meal Breakdowns | Admin: Manage Diets |
+|---|---|---|
+| ![Diets](screenshots/diets.png) | ![Diet Details](screenshots/diet_details.png) | ![Manage Diets](screenshots/manage_diets.png) |
 
 ---
 
