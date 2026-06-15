@@ -50,7 +50,7 @@ This project was collaboratively built by a team of 5 members. Each member was r
 ---
 
 ### 1️⃣ User Authentication & Membership Management
-**👤 Member Name** — *IT24XXXXXX*
+**👤 Chathurya K.G.Y** — *IT24101093*
 
 > Core system foundation — user registration, login, JWT authentication, membership plans, enrollment with receipt uploads, and admin approval workflow.
 
@@ -81,7 +81,7 @@ This project was collaboratively built by a team of 5 members. Each member was r
 ---
 
 ### 2️⃣ Trainer Management
-**👤 Member Name** — *IT24XXXXXX*
+**👤 Tharusha Cooray** — *IT24101462*
 
 > Trainer profiles, availability, image uploads, star ratings, user reviews, and trainer selection for members.
 
@@ -103,7 +103,7 @@ This project was collaboratively built by a team of 5 members. Each member was r
 ---
 
 ### 3️⃣ Workout Plan Management
-**👤 Member Name** — *IT24XXXXXX*
+**👤 Jayasooriya J.M.V.D** — *IT24101016*
 
 > Workout plan library with difficulty levels, calorie tracking, and user enrollment into workout routines.
 
@@ -125,7 +125,7 @@ This project was collaboratively built by a team of 5 members. Each member was r
 ---
 
 ### 4️⃣ Class Booking & Progress Tracking
-**👤 Member Name** — *IT24XXXXXX*
+**👤 Peduruhewa H.N** — *It24103691*
 
 > Trainer session booking system with status tracking, and a personal fitness progress logger for weight and workout history.
 
@@ -148,7 +148,7 @@ This project was collaboratively built by a team of 5 members. Each member was r
 ---
 
 ### 5️⃣ Diet Plan Management
-**👤 Member Name** — *IT24XXXXXX*
+**👤 Dharmathilaka A.K.S** — *IT24100278*
 
 > Diet plan catalog with detailed meal breakdowns, calorie information, and user enrollment.
 
