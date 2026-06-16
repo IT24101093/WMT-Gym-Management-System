@@ -125,7 +125,7 @@ This project was collaboratively built by a team of 5 members. Each member was r
 ---
 
 ### 4️⃣ Class Booking & Progress Tracking
-**👤 Peduruhewa H.N** — *It24103691*
+**👤 Peduruhewa H.N** — *IT24103691*
 
 > Trainer session booking system with status tracking, and a personal fitness progress logger for weight and workout history.
 
@@ -173,11 +173,11 @@ This project was collaboratively built by a team of 5 members. Each member was r
 
 | # | Component | Team Member | Student ID | Backend Files | Frontend Screens |
 |---|---|---|---|---|---|
-| 1 | User Auth & Membership Management | Member Name | IT24XXXXXX | 8 files | 9 screens |
-| 2 | Trainer Management | Member Name | IT24XXXXXX | 3 files | 2 screens |
-| 3 | Workout Plan Management | Member Name | IT24XXXXXX | 3 files | 2 screens |
-| 4 | Class Booking & Progress Tracking | Member Name | IT24XXXXXX | 6 files | 3 screens |
-| 5 | Diet Plan Management | Member Name | IT24XXXXXX | 3 files | 2 screens |
+| 1 | User Auth & Membership Management | Chathurya K.G.Y | IT24101093 | 8 files | 9 screens |
+| 2 | Trainer Management | Tharusha Cooray | IT24101462 | 3 files | 2 screens |
+| 3 | Workout Plan Management | Jayasooriya J.M.V.D | IT24101016 | 3 files | 2 screens |
+| 4 | Class Booking & Progress Tracking | Peduruhewa H.N | IT24103691 | 6 files | 3 screens |
+| 5 | Diet Plan Management | Dharmathilaka A.K.S  | IT24100278 | 3 files | 2 screens |
 
 ---
 
